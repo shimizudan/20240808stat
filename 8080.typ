@@ -326,7 +326,6 @@ plot!(x->heikin(n),label="mean")
       radius: 4pt,
 ```js
 #中心極限定理も見ておこう！
-#中心極限定理も見ておこう！
 using StatsPlots,Distributions
 m , n =10^5,100
 A = [sample(n) for _=1:m]
@@ -346,5 +345,40 @@ plot!(Normal(mean(A),std(A,corrected=false)),label="Normal")
     image("1.png", width: 100%),
     caption: [
       中心極限定理
+    ],
+  )
+
+
+#pagebreak()
+
+- 人数が少ないと正規分布とならないですね。
+
+
+
+#block(
+      fill: aqua,
+      inset: 8pt,
+      radius: 4pt,
+```js
+#人数が少ないと正規分布とならない。
+using StatsPlots,Distributions
+m , n =10^5,10
+A = [sample(n) for _=1:m]
+B = [[i,count(x -> x==i ,A)] for i = 1:n]
+C = [B[i][2]./m for i=1:n]
+
+bar(C,label="sample")
+@show mean(A)
+@show std(A,corrected=false)
+
+plot!(Normal(mean(A),std(A,corrected=false)),label="Normal")
+
+```
+)
+
+  #figure(
+    image("3.png", width: 100%),
+    caption: [
+      中心極限定理とならない
     ],
   )
